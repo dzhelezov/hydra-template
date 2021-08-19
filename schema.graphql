@@ -1,15 +1,179 @@
-type Account @entity {
-  "Account address"
-  id: ID!
-  wallet: String!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!] @derivedFrom(field: "account")
+" All transfers "
+type Transfer @entity {
+  from: String!
+  to: String!
+  value: BigInt!
+  comment: String @fulltext(query: "commentSearch")
+  block: Int!
+} 
+
+type Entity @entity {
+  gridVersion: Int!
+  entityID: Int!
+  name: String!
+  countryID: Int
+  cityID: Int
+  accountID: String!
 }
 
-type HistoricalBalance @entity {
-  id: ID!
-  account: Account!
-  balance: BigInt!
-  timestamp: BigInt!
-  era: String!
+type Twin @entity {
+  gridVersion: Int!
+  twinID: Int!
+  accountID: String!
+  ip: String!
+}
+
+type EntityProof @entity {
+  entityID: Int!
+  signature: String!
+  twinRel: Twin!
+}
+
+type Farm @entity {
+  gridVersion: Int!
+  farmID: Int!
+  name: String!
+  twinID: Int!
+  pricingPolicyID: Int!
+  certificationType: CertificationType!
+  countryID: Int
+  cityID: Int
+  publicIPs: [PublicIp!] @derivedFrom(field: "farm")
+}
+
+type PublicIp @entity {
+  farm: Farm!
+  gateway: String!
+  ip: String!
+  contract_id: Int!
+}
+
+type Node @entity {
+  gridVersion: Int!
+  nodeID: Int!
+  farmID: Int!
+  twinID: Int!
+  location: Location!
+  countryID: Int
+  cityID: Int
+  hru: BigInt
+  sru: BigInt
+  cru: BigInt
+  mru: BigInt
+  publicConfig: PublicConfig
+  uptime: Int
+  created: Int!
+  farming_policy_id: Int!
+}
+
+enum CertificationType {
+  Diy
+  Certified
+}
+
+type PublicConfig @entity {
+  ipv4: String!
+  ipv6: String!
+  gw4: String!
+  gw6: String!
+}
+
+type Location @entity {
+  longitude: String!
+  latitude: String!
+}
+
+type PricingPolicy @entity {
+  gridVersion: Int!
+  pricingPolicyID: Int!
+  name: String!
+  su: Policy!
+  cu: Policy!
+  nu: Policy!
+  ipu: Policy!
+  foundation_account: String!
+  certified_sales_account: String!
+}
+
+type Policy @entity {
+  value: Int!
+  unit: Unit!
+}
+
+enum Unit {
+  Bytes,
+  Kilobytes,
+  Megabytes,
+  Gigabytes,
+  Terrabytes
+}
+
+type Country @entity {
+  countryID: Int!
+  code: String!
+  name: String!
+  region: String!
+  subregion: String!
+  lat: String
+  long: String
+}
+
+type City @entity {
+  cityID: Int!
+  countryID: Int!
+  name: String!
+}
+
+type NodeContract @entity {
+  version: Int!
+  contractID: Int!
+  twinID: Int!
+  nodeID: Int!
+  deployment_data: String!
+  deployment_hash: String!
+  numberOfPublicIPs: Int!
+  state: ContractState!
+}
+
+enum ContractState {
+  Created,
+  Deleted,
+  OutOfFunds
+}
+
+type Consumption @entity {
+  contractID: Int!
+  timestamp: Int!
+  cru: BigInt
+  sru: BigInt
+  hru: BigInt
+  mru: BigInt
+  nru: BigInt
+}
+
+type ContractBillReport @entity {
+  contractID: Int!
+  discount_received: DiscountLevel!
+  amount_billed: Int!
+  timestamp: Int!
+}
+
+enum DiscountLevel {
+  None,
+  Default,
+  Bronze,
+  Silver,
+  Gold
+}
+
+type FarmingPolicy @entity {
+  gridVersion: Int!
+  farmingPolicyID: Int!
+  name: String!
+  cu: Int!
+  su: Int!
+  nu: Int!
+  ipv4: Int!
+  timestamp: Int!
+  certification_type: CertificationType!
 }

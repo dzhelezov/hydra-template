@@ -7,7 +7,7 @@ import { AccountId, Balance } from "@polkadot/types/interfaces";
 
 export namespace Balances {
   /**
-   *  Transfer succeeded (from, to, value).
+   *  Transfer succeeded. \[from, to, value\]
    *
    *  Event parameters: [AccountId, AccountId, Balance, ]
    */

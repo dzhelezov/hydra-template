@@ -39,6 +39,9 @@ rm -r db generated types
 # Analyze schema.graphql and generate model/server files
 npm run codegen
 
+# If necessary, create the database
+npm run db:create
+
 # Analyze database state and create migration to match generated models
 npm run db:create-migration
 
