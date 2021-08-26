@@ -30,11 +30,13 @@ export async function balancesTransfer({
   const hbFrom = new HistoricalBalance()
   hbFrom.account = fromAcc;
   hbFrom.balance = fromAcc.balance;
+  hbFrom.testField = { name: "myName", type: "MyType", value: "hbFromValue", additionalData: [] }
   hbFrom.timestamp = new BN(block.timestamp)
   await store.save(hbFrom)
 
   const hbTo = new HistoricalBalance()
   hbTo.account = toAcc;
+  hbTo.testField = { name: "myName", type: "MyType", value: "hbToValue", additionalData: [] }
   hbTo.balance = toAcc.balance;
   hbTo.timestamp = new BN(block.timestamp)
   await store.save(hbTo)

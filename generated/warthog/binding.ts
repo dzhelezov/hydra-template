@@ -125,6 +125,53 @@ export interface AccountWhereUniqueInput {
   id: ID_Output
 }
 
+export interface AdditionalDataCreateInput {
+  data?: String | null
+}
+
+export interface AdditionalDataInput {
+  data?: Bytes | null
+}
+
+export interface AdditionalDataUpdateInput {
+  data?: String | null
+}
+
+export interface AdditionalDataWhereInput {
+  id_eq?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  createdAt_eq?: DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  createdById_eq?: ID_Input | null
+  createdById_in?: ID_Output[] | ID_Output | null
+  updatedAt_eq?: DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
+  updatedById_eq?: ID_Input | null
+  updatedById_in?: ID_Output[] | ID_Output | null
+  deletedAt_all?: Boolean | null
+  deletedAt_eq?: DateTime | null
+  deletedAt_lt?: DateTime | null
+  deletedAt_lte?: DateTime | null
+  deletedAt_gt?: DateTime | null
+  deletedAt_gte?: DateTime | null
+  deletedById_eq?: ID_Input | null
+  deletedById_in?: ID_Output[] | ID_Output | null
+  data_eq?: Bytes | null
+  data_in?: Bytes[] | Bytes | null
+  AND?: AdditionalDataWhereInput[] | AdditionalDataWhereInput | null
+  OR?: AdditionalDataWhereInput[] | AdditionalDataWhereInput | null
+}
+
+export interface AdditionalDataWhereUniqueInput {
+  id: ID_Output
+}
+
 export interface BaseWhereInput {
   id_eq?: String | null
   id_in?: String[] | String | null
@@ -150,12 +197,14 @@ export interface BaseWhereInput {
 }
 
 export interface HistoricalBalanceCreateInput {
+  testField: SomeDataInput
   account: ID_Output
   balance: String
   timestamp: String
 }
 
 export interface HistoricalBalanceUpdateInput {
+  testField?: SomeDataInput | null
   account?: ID_Input | null
   balance?: String | null
   timestamp?: String | null
@@ -186,6 +235,7 @@ export interface HistoricalBalanceWhereInput {
   deletedAt_gte?: DateTime | null
   deletedById_eq?: ID_Input | null
   deletedById_in?: ID_Output[] | ID_Output | null
+  testField_json?: JSONObject | null
   account_eq?: ID_Input | null
   account_in?: ID_Output[] | ID_Output | null
   balance_eq?: BigInt | null
@@ -206,6 +256,73 @@ export interface HistoricalBalanceWhereInput {
 }
 
 export interface HistoricalBalanceWhereUniqueInput {
+  id: ID_Output
+}
+
+export interface SomeDataCreateInput {
+  name?: String | null
+  type?: String | null
+  value?: String | null
+}
+
+export interface SomeDataInput {
+  name?: String | null
+  type?: String | null
+  value?: String | null
+  additionalData: Array<AdditionalDataInput>
+}
+
+export interface SomeDataUpdateInput {
+  name?: String | null
+  type?: String | null
+  value?: String | null
+}
+
+export interface SomeDataWhereInput {
+  id_eq?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  createdAt_eq?: DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  createdById_eq?: ID_Input | null
+  createdById_in?: ID_Output[] | ID_Output | null
+  updatedAt_eq?: DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
+  updatedById_eq?: ID_Input | null
+  updatedById_in?: ID_Output[] | ID_Output | null
+  deletedAt_all?: Boolean | null
+  deletedAt_eq?: DateTime | null
+  deletedAt_lt?: DateTime | null
+  deletedAt_lte?: DateTime | null
+  deletedAt_gt?: DateTime | null
+  deletedAt_gte?: DateTime | null
+  deletedById_eq?: ID_Input | null
+  deletedById_in?: ID_Output[] | ID_Output | null
+  name_eq?: String | null
+  name_contains?: String | null
+  name_startsWith?: String | null
+  name_endsWith?: String | null
+  name_in?: String[] | String | null
+  type_eq?: String | null
+  type_contains?: String | null
+  type_startsWith?: String | null
+  type_endsWith?: String | null
+  type_in?: String[] | String | null
+  value_eq?: String | null
+  value_contains?: String | null
+  value_startsWith?: String | null
+  value_endsWith?: String | null
+  value_in?: String[] | String | null
+  AND?: SomeDataWhereInput[] | SomeDataWhereInput | null
+  OR?: SomeDataWhereInput[] | SomeDataWhereInput | null
+}
+
+export interface SomeDataWhereUniqueInput {
   id: ID_Output
 }
 
@@ -249,6 +366,10 @@ export interface AccountEdge {
   cursor: String
 }
 
+export interface AdditionalData {
+  data?: Bytes | null
+}
+
 export interface BaseModel extends BaseGraphQLObject {
   id: ID_Output
   createdAt: DateTime
@@ -280,6 +401,7 @@ export interface HistoricalBalance extends BaseGraphQLObject {
   deletedAt?: DateTime | null
   deletedById?: String | null
   version: Int
+  testField: SomeData
   account: Account
   accountId: String
   balance: BigInt
@@ -311,6 +433,13 @@ export interface ProcessorState {
   chainHead: Float
 }
 
+export interface SomeData {
+  name?: String | null
+  type?: String | null
+  value?: String | null
+  additionalData: Array<AdditionalData>
+}
+
 export interface StandardDeleteResponse {
   id: ID_Output
 }
@@ -324,6 +453,11 @@ export type BigInt = string
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean
+
+/*
+GraphQL representation of Bytes
+*/
+export type Bytes = string
 
 /*
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
@@ -345,6 +479,22 @@ export type ID_Output = string
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number
+
+/*
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+*/
+
+    export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+
+    export type JsonPrimitive = string | number | boolean | null | {};
+    
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface JsonArray extends Array<JsonValue> {}
+    
+    export type JsonObject = { [member: string]: JsonValue };
+
+    export type JSONObject = JsonObject;
+  
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.

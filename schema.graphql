@@ -6,8 +6,22 @@ type Account @entity {
   historicalBalances: [HistoricalBalance!] @derivedFrom(field: "account")
 }
 
+type AdditionalData @jsonField {
+  data: Bytes
+}
+
+type SomeData @jsonField {
+  name: String
+  type: String
+  value: String
+
+  additionalData: [AdditionalData!]
+}
+
+
 type HistoricalBalance @entity {
   id: ID!
+  testField: SomeData!
   account: Account!
   balance: BigInt!
   timestamp: BigInt!

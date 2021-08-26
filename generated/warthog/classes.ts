@@ -24,9 +24,358 @@ const { GraphQLJSONObject } = require('graphql-type-json');
 import { BaseWhereInput, JsonObject, PaginationArgs, DateOnlyString, DateTimeString, BigInt, Bytes } from 'warthog';
 
 // @ts-ignore
+import { AdditionalData } from "../modules/jsonfields/jsonfields.model";
+// @ts-ignore
+import { SomeData } from "../modules/jsonfields/jsonfields.model";
+// @ts-ignore
 import { HistoricalBalance } from "../modules/historical-balance/historical-balance.model";
 // @ts-ignore
 import { Account } from "../modules/account/account.model";
+
+export enum AdditionalDataOrderByEnum {
+  createdAt_ASC = "createdAt_ASC",
+  createdAt_DESC = "createdAt_DESC",
+
+  updatedAt_ASC = "updatedAt_ASC",
+  updatedAt_DESC = "updatedAt_DESC",
+
+  deletedAt_ASC = "deletedAt_ASC",
+  deletedAt_DESC = "deletedAt_DESC",
+
+  data_ASC = "data_ASC",
+  data_DESC = "data_DESC"
+}
+
+registerEnumType(AdditionalDataOrderByEnum, {
+  name: "AdditionalDataOrderByInput"
+});
+
+@TypeGraphQLInputType()
+export class AdditionalDataWhereInput {
+  @TypeGraphQLField(() => ID, { nullable: true })
+  id_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  id_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  createdById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  createdById_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  updatedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  updatedById_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  deletedAt_all?: Boolean;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  deletedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  deletedById_in?: string[];
+
+  @TypeGraphQLField(() => Bytes, { nullable: true })
+  data_eq?: string;
+
+  @TypeGraphQLField(() => [Bytes], { nullable: true })
+  data_in?: string[];
+
+  @TypeGraphQLField(() => AdditionalDataWhereInput, { nullable: true })
+  AND?: [AdditionalDataWhereInput];
+
+  @TypeGraphQLField(() => AdditionalDataWhereInput, { nullable: true })
+  OR?: [AdditionalDataWhereInput];
+}
+
+@TypeGraphQLInputType()
+export class AdditionalDataWhereUniqueInput {
+  @TypeGraphQLField(() => ID)
+  id?: string;
+}
+
+@TypeGraphQLInputType()
+export class AdditionalDataCreateInput {
+  @TypeGraphQLField({ nullable: true })
+  data?: string;
+}
+
+@TypeGraphQLInputType()
+export class AdditionalDataUpdateInput {
+  @TypeGraphQLField({ nullable: true })
+  data?: string;
+}
+
+@ArgsType()
+export class AdditionalDataWhereArgs extends PaginationArgs {
+  @TypeGraphQLField(() => AdditionalDataWhereInput, { nullable: true })
+  where?: AdditionalDataWhereInput;
+
+  @TypeGraphQLField(() => AdditionalDataOrderByEnum, { nullable: true })
+  orderBy?: AdditionalDataOrderByEnum[];
+}
+
+@ArgsType()
+export class AdditionalDataCreateManyArgs {
+  @TypeGraphQLField(() => [AdditionalDataCreateInput])
+  data!: AdditionalDataCreateInput[];
+}
+
+@ArgsType()
+export class AdditionalDataUpdateArgs {
+  @TypeGraphQLField() data!: AdditionalDataUpdateInput;
+  @TypeGraphQLField() where!: AdditionalDataWhereUniqueInput;
+}
+
+export enum SomeDataOrderByEnum {
+  createdAt_ASC = "createdAt_ASC",
+  createdAt_DESC = "createdAt_DESC",
+
+  updatedAt_ASC = "updatedAt_ASC",
+  updatedAt_DESC = "updatedAt_DESC",
+
+  deletedAt_ASC = "deletedAt_ASC",
+  deletedAt_DESC = "deletedAt_DESC",
+
+  name_ASC = "name_ASC",
+  name_DESC = "name_DESC",
+
+  type_ASC = "type_ASC",
+  type_DESC = "type_DESC",
+
+  value_ASC = "value_ASC",
+  value_DESC = "value_DESC"
+}
+
+registerEnumType(SomeDataOrderByEnum, {
+  name: "SomeDataOrderByInput"
+});
+
+@TypeGraphQLInputType()
+export class SomeDataWhereInput {
+  @TypeGraphQLField(() => ID, { nullable: true })
+  id_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  id_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  createdById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  createdById_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  updatedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  updatedById_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  deletedAt_all?: Boolean;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  deletedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  deletedById_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  name_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  name_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  name_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  name_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  name_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  type_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  type_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  type_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  type_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  type_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  value_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  value_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  value_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  value_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  value_in?: string[];
+
+  @TypeGraphQLField(() => SomeDataWhereInput, { nullable: true })
+  AND?: [SomeDataWhereInput];
+
+  @TypeGraphQLField(() => SomeDataWhereInput, { nullable: true })
+  OR?: [SomeDataWhereInput];
+}
+
+@TypeGraphQLInputType()
+export class SomeDataWhereUniqueInput {
+  @TypeGraphQLField(() => ID)
+  id?: string;
+}
+
+@TypeGraphQLInputType()
+export class SomeDataCreateInput {
+  @TypeGraphQLField({ nullable: true })
+  name?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  type?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  value?: string;
+}
+
+@TypeGraphQLInputType()
+export class SomeDataUpdateInput {
+  @TypeGraphQLField({ nullable: true })
+  name?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  type?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  value?: string;
+}
+
+@ArgsType()
+export class SomeDataWhereArgs extends PaginationArgs {
+  @TypeGraphQLField(() => SomeDataWhereInput, { nullable: true })
+  where?: SomeDataWhereInput;
+
+  @TypeGraphQLField(() => SomeDataOrderByEnum, { nullable: true })
+  orderBy?: SomeDataOrderByEnum[];
+}
+
+@ArgsType()
+export class SomeDataCreateManyArgs {
+  @TypeGraphQLField(() => [SomeDataCreateInput])
+  data!: SomeDataCreateInput[];
+}
+
+@ArgsType()
+export class SomeDataUpdateArgs {
+  @TypeGraphQLField() data!: SomeDataUpdateInput;
+  @TypeGraphQLField() where!: SomeDataWhereUniqueInput;
+}
 
 export enum HistoricalBalanceOrderByEnum {
   createdAt_ASC = "createdAt_ASC",
@@ -126,6 +475,9 @@ export class HistoricalBalanceWhereInput {
   @TypeGraphQLField(() => [ID], { nullable: true })
   deletedById_in?: string[];
 
+  @TypeGraphQLField(() => GraphQLJSONObject, { nullable: true })
+  testField_json?: JsonObject;
+
   @TypeGraphQLField(() => ID, { nullable: true })
   account_eq?: string;
 
@@ -186,6 +538,9 @@ export class HistoricalBalanceWhereUniqueInput {
 
 @TypeGraphQLInputType()
 export class HistoricalBalanceCreateInput {
+  @TypeGraphQLField(() => SomeData)
+  testField!: SomeData;
+
   @TypeGraphQLField(() => ID)
   account!: string;
 
@@ -198,6 +553,9 @@ export class HistoricalBalanceCreateInput {
 
 @TypeGraphQLInputType()
 export class HistoricalBalanceUpdateInput {
+  @TypeGraphQLField(() => SomeData, { nullable: true })
+  testField?: SomeData;
+
   @TypeGraphQLField(() => ID, { nullable: true })
   account?: string;
 

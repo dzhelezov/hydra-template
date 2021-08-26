@@ -93,6 +93,57 @@ input AccountWhereUniqueInput {
   id: ID!
 }
 
+type AdditionalData {
+  data: Bytes
+}
+
+input AdditionalDataCreateInput {
+  data: String
+}
+
+input AdditionalDataInput {
+  data: Bytes
+}
+
+input AdditionalDataUpdateInput {
+  data: String
+}
+
+input AdditionalDataWhereInput {
+  id_eq: ID
+  id_in: [ID!]
+  createdAt_eq: DateTime
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdById_eq: ID
+  createdById_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedById_eq: ID
+  updatedById_in: [ID!]
+  deletedAt_all: Boolean
+  deletedAt_eq: DateTime
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  deletedById_eq: ID
+  deletedById_in: [ID!]
+  data_eq: Bytes
+  data_in: [Bytes!]
+  AND: [AdditionalDataWhereInput!]
+  OR: [AdditionalDataWhereInput!]
+}
+
+input AdditionalDataWhereUniqueInput {
+  id: ID!
+}
+
 interface BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
@@ -153,6 +204,9 @@ input BaseWhereInput {
 """GraphQL representation of BigInt"""
 scalar BigInt
 
+"""GraphQL representation of Bytes"""
+scalar Bytes
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -171,6 +225,7 @@ type HistoricalBalance implements BaseGraphQLObject {
   deletedAt: DateTime
   deletedById: String
   version: Int!
+  testField: SomeData!
   account: Account!
   accountId: String!
   balance: BigInt!
@@ -184,6 +239,7 @@ type HistoricalBalanceConnection {
 }
 
 input HistoricalBalanceCreateInput {
+  testField: SomeDataInput!
   account: ID!
   balance: String!
   timestamp: String!
@@ -210,6 +266,7 @@ enum HistoricalBalanceOrderByInput {
 }
 
 input HistoricalBalanceUpdateInput {
+  testField: SomeDataInput
   account: ID
   balance: String
   timestamp: String
@@ -240,6 +297,7 @@ input HistoricalBalanceWhereInput {
   deletedAt_gte: DateTime
   deletedById_eq: ID
   deletedById_in: [ID!]
+  testField_json: JSONObject
   account_eq: ID
   account_in: [ID!]
   balance_eq: BigInt
@@ -263,6 +321,11 @@ input HistoricalBalanceWhereUniqueInput {
   id: ID!
 }
 
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -284,6 +347,80 @@ type Query {
   historicalBalances(offset: Int, limit: Int = 50, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): [HistoricalBalance!]!
   historicalBalanceByUniqueInput(where: HistoricalBalanceWhereUniqueInput!): HistoricalBalance
   historicalBalancesConnection(first: Int, after: String, last: Int, before: String, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): HistoricalBalanceConnection!
+}
+
+type SomeData {
+  name: String
+  type: String
+  value: String
+  additionalData: [AdditionalData!]!
+}
+
+input SomeDataCreateInput {
+  name: String
+  type: String
+  value: String
+}
+
+input SomeDataInput {
+  name: String
+  type: String
+  value: String
+  additionalData: [AdditionalDataInput!]!
+}
+
+input SomeDataUpdateInput {
+  name: String
+  type: String
+  value: String
+}
+
+input SomeDataWhereInput {
+  id_eq: ID
+  id_in: [ID!]
+  createdAt_eq: DateTime
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdById_eq: ID
+  createdById_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedById_eq: ID
+  updatedById_in: [ID!]
+  deletedAt_all: Boolean
+  deletedAt_eq: DateTime
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  deletedById_eq: ID
+  deletedById_in: [ID!]
+  name_eq: String
+  name_contains: String
+  name_startsWith: String
+  name_endsWith: String
+  name_in: [String!]
+  type_eq: String
+  type_contains: String
+  type_startsWith: String
+  type_endsWith: String
+  type_in: [String!]
+  value_eq: String
+  value_contains: String
+  value_startsWith: String
+  value_endsWith: String
+  value_in: [String!]
+  AND: [SomeDataWhereInput!]
+  OR: [SomeDataWhereInput!]
+}
+
+input SomeDataWhereUniqueInput {
+  id: ID!
 }
 
 type StandardDeleteResponse {

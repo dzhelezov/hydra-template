@@ -8,6 +8,9 @@ import * as jsonTypes from '../jsonfields/jsonfields.model';
 
 @Model({ api: {} })
 export class HistoricalBalance extends BaseModel {
+  @JSONField({ filter: true, gqlFieldType: jsonTypes.SomeData })
+  testField!: jsonTypes.SomeData;
+
   @ManyToOne(
     () => Account,
     (param: Account) => param.historicalBalances,
